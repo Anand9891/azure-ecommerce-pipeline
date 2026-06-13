@@ -1,0 +1,158 @@
+{
+	"name": "pl_master_ecommerce_daily",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_bronze_data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_bronze_orders",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_silver_staging",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "run_bronze_to_silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "copy_bronze_data",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/anandkoujalagi897@gmail.com/03_gold_queries",
+					"baseParameters": {
+						"storage_key": "NSOSsiEjdRolWsNqmeQFGmS3VhthiYV6IOjECLdN2OOOnlWoH60w1rioDssZFahJl1nHru5/k/0U+ASt+PlMow=="
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ecommerce",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "run_silver_to_gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "run_bronze_to_silver",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/anandkoujalagi897@gmail.com/02_silver_to_gold",
+					"baseParameters": {
+						"STORAGE_KEY": "NSOSsiEjdRolWsNqmeQFGmS3VhthiYV6IOjECLdN2OOOnlWoH60w1rioDssZFahJl1nHru5/k/0U+ASt+PlMow=="
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ecommerce",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "run_gold_queries",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "run_silver_to_gold",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/anandkoujalagi897@gmail.com/03_gold_queries",
+					"baseParameters": {
+						"STORAGE_KEY": "NSOSsiEjdRolWsNqmeQFGmS3VhthiYV6IOjECLdN2OOOnlWoH60w1rioDssZFahJl1nHru5/k/0U+ASt+PlMow=="
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ecommerce",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-06-13T09:44:04Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
