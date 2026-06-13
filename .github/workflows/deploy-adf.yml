@@ -1,0 +1,25 @@
+﻿name: Deploy ADF Pipeline
+
+on:
+  push:
+    branches:
+      - adf_publish
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy ADF ARM Template
+      uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: rg-ecommerce-analytics
+        template: ARMTemplateForFactory.json
+        parameters: ARMTemplateParametersForFactory.json
