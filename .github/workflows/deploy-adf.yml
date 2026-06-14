@@ -3,7 +3,8 @@
 on:
   push:
     branches:
-      - adf_publish
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -17,9 +18,6 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy ADF ARM Template
-      uses: azure/arm-deploy@v1
-      with:
-        resourceGroupName: rg-ecommerce-analytics
-        template: ARMTemplateForFactory.json
-        parameters: ARMTemplateParametersForFactory.json
+    - name: Verify ADF exists
+      run: |
+        az datafactory show --resource-group rg-ecommerce-analytics --factory-name mydatafactory-65
