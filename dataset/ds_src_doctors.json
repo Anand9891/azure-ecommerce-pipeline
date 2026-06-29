@@ -1,0 +1,45 @@
+{
+	"name": "ds_src_doctors",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_healthcare",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "doctors.csv",
+				"folderPath": "bronze/doctors",
+				"fileSystem": "healthcare"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "doctor_id",
+				"type": "String"
+			},
+			{
+				"name": "doctor_name",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			},
+			{
+				"name": "experience_years",
+				"type": "String"
+			},
+			{
+				"name": "contact",
+				"type": "String"
+			}
+		]
+	}
+}

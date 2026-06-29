@@ -1,0 +1,45 @@
+{
+	"name": "ds_src_diagnoses",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_healthcare",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "diagnoses.csv",
+				"folderPath": "bronze/diagnoses",
+				"fileSystem": "healthcare"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "diagnosis_id",
+				"type": "String"
+			},
+			{
+				"name": "admission_id",
+				"type": "String"
+			},
+			{
+				"name": "icd_code",
+				"type": "String"
+			},
+			{
+				"name": "diagnosis_description",
+				"type": "String"
+			},
+			{
+				"name": "severity",
+				"type": "String"
+			}
+		]
+	}
+}

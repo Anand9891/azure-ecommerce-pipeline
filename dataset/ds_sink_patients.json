@@ -1,0 +1,53 @@
+{
+	"name": "ds_sink_patients",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_healthcare",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "patients.csv",
+				"folderPath": "bronze/patients",
+				"fileSystem": "healthcare"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "patient_id",
+				"type": "String"
+			},
+			{
+				"name": "patient_name",
+				"type": "String"
+			},
+			{
+				"name": "dob",
+				"type": "String"
+			},
+			{
+				"name": "gender",
+				"type": "String"
+			},
+			{
+				"name": "blood_group",
+				"type": "String"
+			},
+			{
+				"name": "city",
+				"type": "String"
+			},
+			{
+				"name": "contact",
+				"type": "String"
+			}
+		]
+	}
+}
