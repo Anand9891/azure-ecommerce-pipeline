@@ -1,0 +1,133 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "mydatafactory-65"
+		},
+		"ls_adls_ecommerce_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_ecommerce'"
+		},
+		"ls_adls_healthcare_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_healthcare'"
+		},
+		"ls_databricks_ecommerce_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks_ecommerce'"
+		},
+		"ls_databricks_standard_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks_standard'"
+		},
+		"ls_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_datalake'"
+		},
+		"sqldataenganand_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sqldataenganand'"
+		},
+		"ls_adls_ecommerce_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecommercedevme.dfs.core.windows.net/"
+		},
+		"ls_adls_healthcare_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlshealthcaredevs.dfs.core.windows.net/"
+		},
+		"ls_databricks_ecommerce_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0610-103440-axizs6u3"
+		},
+		"ls_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsecommercedevme.dfs.core.windows.net/"
+		},
+		"sqldataenganand_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-dataeng-anand.database.windows.net"
+		},
+		"sqldataenganand_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "salesdb"
+		},
+		"sqldataenganand_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "CloudSA6e3f4fc9"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "mydatafactory-65_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_adls_ecommerce_accountKey": {
+						"value": "[parameters('ls_adls_ecommerce_accountKey')]"
+					},
+					"ls_adls_healthcare_accountKey": {
+						"value": "[parameters('ls_adls_healthcare_accountKey')]"
+					},
+					"ls_databricks_ecommerce_accessToken": {
+						"value": "[parameters('ls_databricks_ecommerce_accessToken')]"
+					},
+					"ls_databricks_standard_accessToken": {
+						"value": "[parameters('ls_databricks_standard_accessToken')]"
+					},
+					"ls_datalake_accountKey": {
+						"value": "[parameters('ls_datalake_accountKey')]"
+					},
+					"sqldataenganand_password": {
+						"value": "[parameters('sqldataenganand_password')]"
+					},
+					"ls_adls_ecommerce_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_ecommerce_properties_typeProperties_url')]"
+					},
+					"ls_adls_healthcare_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_healthcare_properties_typeProperties_url')]"
+					},
+					"ls_databricks_ecommerce_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_ecommerce_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_datalake_properties_typeProperties_url": {
+						"value": "[parameters('ls_datalake_properties_typeProperties_url')]"
+					},
+					"sqldataenganand_properties_typeProperties_server": {
+						"value": "[parameters('sqldataenganand_properties_typeProperties_server')]"
+					},
+					"sqldataenganand_properties_typeProperties_database": {
+						"value": "[parameters('sqldataenganand_properties_typeProperties_database')]"
+					},
+					"sqldataenganand_properties_typeProperties_userName": {
+						"value": "[parameters('sqldataenganand_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

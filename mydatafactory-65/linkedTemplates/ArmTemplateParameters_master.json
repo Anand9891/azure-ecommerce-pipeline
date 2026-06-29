@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "mydatafactory-65"
+		},
+		"ls_adls_ecommerce_accountKey": {
+			"value": ""
+		},
+		"ls_adls_healthcare_accountKey": {
+			"value": ""
+		},
+		"ls_databricks_ecommerce_accessToken": {
+			"value": ""
+		},
+		"ls_databricks_standard_accessToken": {
+			"value": ""
+		},
+		"ls_datalake_accountKey": {
+			"value": ""
+		},
+		"sqldataenganand_password": {
+			"value": ""
+		},
+		"ls_adls_ecommerce_properties_typeProperties_url": {
+			"value": "https://adlsecommercedevme.dfs.core.windows.net/"
+		},
+		"ls_adls_healthcare_properties_typeProperties_url": {
+			"value": "https://adlshealthcaredevs.dfs.core.windows.net/"
+		},
+		"ls_databricks_ecommerce_properties_typeProperties_existingClusterId": {
+			"value": "0610-103440-axizs6u3"
+		},
+		"ls_datalake_properties_typeProperties_url": {
+			"value": "https://adlsecommercedevme.dfs.core.windows.net/"
+		},
+		"sqldataenganand_properties_typeProperties_server": {
+			"value": "sql-dataeng-anand.database.windows.net"
+		},
+		"sqldataenganand_properties_typeProperties_database": {
+			"value": "salesdb"
+		},
+		"sqldataenganand_properties_typeProperties_userName": {
+			"value": "CloudSA6e3f4fc9"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
